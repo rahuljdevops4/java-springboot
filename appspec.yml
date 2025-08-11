@@ -4,7 +4,7 @@ files:
   - source: /output/books.war
     destination: /opt/tomcat8/webapps
 permissions:
-  - object: /opt/tomcat8/webapps/book.war
+  - object: /opt/tomcat8/webapps/books.war
     owner: tomcat
     group: tomcat
     mode: 755
