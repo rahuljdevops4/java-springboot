@@ -3,10 +3,14 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto8
+      java: corretto17
+  pre_build:
+    commands:
+      - echo "Running pre-build checks..."
+      - mvn --version
   build:
     commands:
-        - mvn package
+        - mvn clean package
         - mkdir output
         - cp target/*.war output/books.war
 artifacts:
