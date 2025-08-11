@@ -4,8 +4,6 @@ phases:
   install:
     runtime-versions:
       java: corretto8
-    commands:
-        - apt update -y
   build:
     commands:
         - mvn clean package
