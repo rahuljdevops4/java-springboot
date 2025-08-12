@@ -1,10 +1,10 @@
 version: 0.0
 os: linux
 files:
-  - source: /output/books.war
+  - source: /target/onlinebookstore.war
     destination: /opt/tomcat8/webapps
 permissions:
-  - object: /opt/tomcat8/webapps/books.war
+  - object: /opt/tomcat8/webapps/onlinebookstore.war
     owner: tomcat
     group: tomcat
     mode: 755
