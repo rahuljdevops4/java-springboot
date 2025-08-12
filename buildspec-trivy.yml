@@ -15,7 +15,7 @@ phases:
     commands:
       - echo "Running Trivy scan on build artifacts..."
       # Fail if HIGH or CRITICAL vulnerabilities are found
-      - ./trivy fs --exit-code 1 --severity HIGH,CRITICAL target/
+      - ./bin/trivy fs --exit-code 1 --severity HIGH,CRITICAL target/
   post_build:
     commands:
       - echo "Trivy scan completed."
