@@ -11,14 +11,14 @@ phases:
   pre_build:
     commands:
       - echo "===== Building app before scanning ====="
-      - mvn clean package -DskipTests
+      - mvn clean package -DskipTests && sleep 20
 
   build:
     commands:
       - echo "===== Checking for build artifact ====="
       - |
-        ls -l target/
-        if [ ! -f target/*.war ]; then
+        ls -l target/ && pwd
+        if [ ! -f target/onlinebookstore.war ]; then
           echo "ERROR: No WAR file found in target/ — build failed or wrong path.";
           exit 1;
         fi
