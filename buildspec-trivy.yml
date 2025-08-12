@@ -27,7 +27,7 @@ phases:
       - ./bin/trivy fs --download-db-only
 
       - echo "===== Running Trivy scan on JAR ====="
-      - cd /codebuild/output/src3113616969/src/github.com/rahuljdevops4/java-springboot/target/ && ./bin/trivy fs --exit-code 1 --severity HIGH,CRITICAL 
+      - sleep 10 && ./bin/trivy fs --exit-code 1 --severity HIGH,CRITICAL target/**
 
   post_build:
     commands:
