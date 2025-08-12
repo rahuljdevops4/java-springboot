@@ -13,9 +13,11 @@ phases:
       - mvn clean package -DskipTests
   build:
     commands:
+      - echo "Updating Trivy DB..."
+      - ./bin/trivy fs --download-db-only
       - echo "Running Trivy scan on build artifacts..."
       # Fail if HIGH or CRITICAL vulnerabilities are found
-      - ./bin/trivy fs --exit-code 1 --severity HIGH,CRITICAL target/
+      - ./bin/trivy fs --exit-code 1 --severity HIGH,CRITICAL target/onlinebookstore.war
   post_build:
     commands:
       - echo "Trivy scan completed."
