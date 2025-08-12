@@ -17,7 +17,6 @@ phases:
     commands:
       - echo "===== Checking for build artifact ====="
       - |
-        ls -l target/ && pwd
         if [ ! -f target/onlinebookstore.war ]; then
           echo "ERROR: No WAR file found in target/ — build failed or wrong path.";
           exit 1;
