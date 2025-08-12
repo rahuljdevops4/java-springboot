@@ -6,7 +6,7 @@ phases:
     commands:
       - echo "===== Installing Trivy ====="
       - curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
-      - ./trivy --version
+      - ./bin/trivy --version
 
   pre_build:
     commands:
@@ -22,10 +22,10 @@ phases:
         fi
 
       - echo "===== Updating Trivy vulnerability database ====="
-      - ./trivy fs --download-db-only
+      - ./bin/trivy fs --download-db-only
 
       - echo "===== Running Trivy scan on JAR ====="
-      - ./trivy fs --exit-code 1 --severity HIGH,CRITICAL target/
+      - ./bin/trivy fs --exit-code 1 --severity HIGH,CRITICAL target/
 
   post_build:
     commands:
