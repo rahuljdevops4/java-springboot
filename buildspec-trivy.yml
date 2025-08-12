@@ -16,7 +16,7 @@ phases:
   build:
     commands:
       - echo "===== Checking for build artifact ====="
-      - if [ ! -f target/*.war ]; then
+        if [ ! -f target/*.war ]; then
           echo "ERROR: No WAR file found in target/ — build failed or wrong path.";
           exit 1;
         fi
