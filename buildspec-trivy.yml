@@ -27,7 +27,7 @@ phases:
       - ./bin/trivy fs --download-db-only
 
       - echo "===== Running Trivy scan on JAR ====="
-      - sleep 10 && trivy java --exit-code 1 --severity HIGH,CRITICAL target/onlinebookstore.war
+      - sleep 10 && ./bin/trivy java --exit-code 1 --severity HIGH,CRITICAL target/onlinebookstore.war
 
 
   post_build:
