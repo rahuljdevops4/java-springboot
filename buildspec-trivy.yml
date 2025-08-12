@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+    commands:
+      - echo "Installing Trivy..."
+      - curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+  pre_build:
+    commands:
+      - echo "Cleaning old builds..."
+      - mvn clean package -DskipTests
+  build:
+    commands:
+      - echo "Running Trivy scan on build artifacts..."
+      # Fail if HIGH or CRITICAL vulnerabilities are found
+      - ./trivy fs --exit-code 1 --severity HIGH,CRITICAL target/
+  post_build:
+    commands:
+      - echo "Trivy scan completed."
+artifacts:
+  files:
+    - target/**
