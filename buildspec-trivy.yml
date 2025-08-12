@@ -1,26 +1,35 @@
 version: 0.2
-
 phases:
   install:
     runtime-versions:
       java: corretto11
     commands:
-      - echo "Installing Trivy..."
+      - echo "===== Installing Trivy ====="
       - curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+      - ./trivy --version
+
   pre_build:
     commands:
-      - echo "Cleaning old builds..."
+      - echo "===== Building app before scanning ====="
       - mvn clean package -DskipTests
+
   build:
     commands:
-      - echo "Updating Trivy DB..."
-      - ./bin/trivy fs --download-db-only
-      - echo "Running Trivy scan on build artifacts..."
-      # Fail if HIGH or CRITICAL vulnerabilities are found
-      - ./bin/trivy fs --exit-code 1 --severity HIGH,CRITICAL target/onlinebookstore.war
+      - echo "===== Checking for build artifact ====="
+      - if [ ! -f target/*.war ]; then
+          echo "ERROR: No WAR file found in target/ — build failed or wrong path.";
+          exit 1;
+        fi
+
+      - echo "===== Updating Trivy vulnerability database ====="
+      - ./trivy fs --download-db-only
+
+      - echo "===== Running Trivy scan on JAR ====="
+      - ./trivy fs --exit-code 1 --severity HIGH,CRITICAL target/
+
   post_build:
     commands:
-      - echo "Trivy scan completed."
+      - echo "===== Trivy scan completed ====="
 artifacts:
   files:
     - target/**
